@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 data-key="expense_title">💰 Farm Expenses</h1>
+
+<h3 data-key="add_expense">Add Expense</h3>
+
+<form method="POST">
+
+<label data-key="expense_type">Expense Type</label>
+<select name="expense_type">
+<option>Seeds</option>
+<option>Fertilizer</option>
+<option>Labour</option>
+<option>Transport</option>
+<option>Equipment</option>
+</select>
+
+<label data-key="amount">Amount (₹)</label>
+<input type="number" name="amount" required>
+
+<button type="submit" data-key="add_expense">Add Expense</button>
+
+</form>
+
+
+<h2 data-key="expense_list">📋 Expense List</h2>
+
+<table>
+
+<tr>
+<th data-key="expense_type">Expense Type</th>
+<th data-key="amount">Amount</th>
+<th>Action</th>
+</tr>
+
+{% for expense in expenses %}
+
+<tr>
+<td>{{ expense[2] }}</td>
+<td>₹ {{ expense[3] }}</td>
+
+<td>
+<a href="/delete_expense/{{ expense[0] }}">
+<button style="background:green;color:white;border:none;padding:5px 10px;border-radius:5px;">
+❌ Delete
+</button>
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}
+
