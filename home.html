@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 data-key="dashboard" style="text-align:center;margin-bottom:20px;">
+🌾 KrushiSaathi Dashboard
+</h1>
+
+<!-- DASHBOARD CARDS -->
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+
+    <!-- TOTAL CROPS -->
+    <div style="background:#e8f5e9;padding:20px;border-radius:15px;box-shadow:0px 4px 10px rgba(0,0,0,0.1);text-align:center;">
+        <h3 data-key="total_crops">🌱 Total Crops</h3>
+        <p style="font-size:28px;font-weight:bold;">{{ crops }}</p>
+    </div>
+
+    <!-- TOTAL EXPENSES -->
+    <div style="background:#fff3e0;padding:20px;border-radius:15px;box-shadow:0px 4px 10px rgba(0,0,0,0.1);text-align:center;">
+        <h3 data-key="total_expenses">💰 Total Expenses</h3>
+        <p style="font-size:28px;font-weight:bold;">₹ {{ expenses }}</p>
+    </div>
+
+    <!-- TOTAL INCOME -->
+    <div style="background:#e3f2fd;padding:20px;border-radius:15px;box-shadow:0px 4px 10px rgba(0,0,0,0.1);text-align:center;">
+        <h3 data-key="total_income">📈 Total Income</h3>
+        <p style="font-size:28px;font-weight:bold;">₹ {{ income }}</p>
+    </div>
+
+    <!-- PROFIT / LOSS -->
+    <div style="background:#fce4ec;padding:20px;border-radius:15px;box-shadow:0px 4px 10px rgba(0,0,0,0.1);text-align:center;">
+        <h3 data-key="profit_loss">📊 Profit / Loss</h3>
+
+        {% if profit >= 0 %}
+            <p style="font-size:28px;font-weight:bold;color:green;">
+            ₹ {{ profit }} Profit
+            </p>
+        {% else %}
+            <p style="font-size:28px;font-weight:bold;color:red;">
+            ₹ {{ profit }} Loss
+            </p>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<br><br>
+
+<!-- WELCOME SECTION -->
+
+<div style="background:white;padding:20px;border-radius:15px;box-shadow:0px 4px 10px rgba(0,0,0,0.1);text-align:center;">
+
+<h2 data-key="welcome"> 🌱 Welcome to KrushiSaathi</h2>
+
+<p data-key="description">
+KrushiSaathi helps farmers manage crops, expenses, soil records,
+and track profit or loss easily.
+</p>
+
+</div>
+
+<br>
+
+<!-- DOWNLOAD REPORT BUTTON -->
+
+<div style="text-align:center;">
+<a href="/download_report">
+<button style="background:green;color:white;border:none;padding:10px 20px;border-radius:10px;font-size:16px;cursor:pointer;">
+📄 <span data-key="download_report">Download Report</span>
+</button>
+</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>KrushiSaathi</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- TOP NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+🌱 KrushiSaathi
+</div>
+
+<div class="menu">
+
+<a href="/" class="nav-item">
+<span>🏠</span>
+<span data-key="home">Home</span>
+</a>
+
+<a href="/crops" class="nav-item">
+<span>🌾</span>
+<span data-key="crops">Crops</span>
+</a>
+
+<a href="/expenses" class="nav-item">
+<span>💰</span>
+<span data-key="expenses">Expenses</span>
+</a>
+
+<a href="/soil" class="nav-item">
+<span>🌱</span>
+<span data-key="soil">Soil</span>
+</a>
+
+<a href="/profit" class="nav-item">
+<span>📊</span>
+<span data-key="profit">Profit</span>
+</a>
+
+<a href="/graph" class="nav-item">
+<span>📈</span>
+<span data-key="graph">Graph</span>
+</a>
+
+<a href="/logout">
+<button style="background:red;color:white;border:none;padding:6px 12px;border-radius:8px;">
+Logout
+</button>
+</a>
+
+<select id="languageSwitcher" onchange="changeLanguage()">
+<option value="en">English</option>
+<option value="mr">मराठी</option>
+<option value="hi">हिन्दी</option>
+</select>
+
+</div>
+
+</div>
+
+<!-- ✅ BANNER IMAGE (TOP) -->
+
+<div style="width:100%;padding:10px;">
+    <img src="{{ url_for('static', filename='images/farmer.jpg') }}" 
+         style="width:100%;max-height:260px;object-fit:cover;border-radius:15px;box-shadow:0px 4px 12px rgba(0,0,0,0.2);">
+</div>
+
+
+<!-- PAGE CONTENT -->
+
+<div class="container">
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+<p>🌱 KrushiSaathi – Smart Farming Companion</p>
+
+</div>
+
+<script>
+
+const translations = {
+
+en: {
+
+dashboard:"KrushiSaathi Dashboard",
+home:"Home",
+crops:"Crops",
+expenses:"Expenses",
+soil:"Soil Diary",
+profit:"Profit Report",
+graph:"Expense Graph",
+
+total_crops:"Total Crops",
+total_expenses:"Total Expenses",
+total_income:"Total Income",
+profit_loss:"Profit / Loss",
+
+welcome:"Welcome to KrushiSaathi",
+description:"KrushiSaathi helps farmers manage crops, expenses, soil records and track profit or loss easily.",
+
+crop_name:"Crop Name",
+season:"Season",
+income:"Income",
+add_crop:"Add Crop",
+crop_list:"Crop List",
+
+expense_title:"Farm Expenses",
+add_expense:"Add Expense",
+amount:"Amount",
+
+soil_title:"Soil Diary",
+soil_type:"Soil Type",
+ph_level:"pH Level",
+notes:"Notes",
+download_report:"Download Report"
+
+},
+
+mr: {
+
+dashboard:"कृषीसाथी डॅशबोर्ड",
+home:"मुख्यपृष्ठ",
+crops:"पिके",
+expenses:"खर्च",
+soil:"माती नोंद",
+profit:"नफा अहवाल",
+graph:"खर्च चार्ट",
+
+total_crops:"एकूण पिके",
+total_expenses:"एकूण खर्च",
+total_income:"एकूण उत्पन्न",
+profit_loss:"नफा / तोटा",
+
+welcome:"कृषीसाथीमध्ये आपले स्वागत आहे",
+description:"कृषीसाथी शेतकऱ्यांना पिके, खर्च, माती माहिती आणि नफा-तोटा व्यवस्थापन करण्यात मदत करते.",
+
+crop_name:"पीक नाव",
+season:"हंगाम",
+income:"उत्पन्न",
+add_crop:"पीक जोडा",
+crop_list:"पीक यादी",
+
+expense_title:"शेती खर्च",
+add_expense:"खर्च जोडा",
+amount:"रक्कम",
+
+soil_title:"माती नोंद",
+soil_type:"माती प्रकार",
+ph_level:"pH स्तर",
+notes:"नोंदी",
+
+download_report:"अहवाल डाउनलोड करा"
+
+},
+
+hi: {
+
+dashboard:"कृषिसाथी डैशबोर्ड",
+home:"होम",
+crops:"फसल",
+expenses:"खर्च",
+soil:"मिट्टी रिकॉर्ड",
+profit:"लाभ रिपोर्ट",
+graph:"खर्च चार्ट",
+
+total_crops:"कुल फसल",
+total_expenses:"कुल खर्च",
+total_income:"कुल आय",
+profit_loss:"लाभ / हानि",
+
+welcome:"कृषिसाथी में आपका स्वागत है",
+description:"कृषिसाथी किसानों को फसल, खर्च, मिट्टी जानकारी और लाभ-हानि प्रबंधन में मदद करता है।",
+
+crop_name:"फसल नाम",
+season:"मौसम",
+income:"आय",
+add_crop:"फसल जोड़ें",
+crop_list:"फसल सूची",
+
+expense_title:"खेती खर्च",
+add_expense:"खर्च जोड़ें",
+amount:"राशि",
+
+soil_title:"मिट्टी रिकॉर्ड",
+soil_type:"मिट्टी प्रकार",
+ph_level:"pH स्तर",
+notes:"नोट्स",
+
+download_report:"रिपोर्ट डाउनलोड करें"
+
+}
+
+};
+
+
+function changeLanguage(){
+
+let lang = document.getElementById("languageSwitcher").value
+
+localStorage.setItem("lang", lang)
+
+applyLanguage(lang)
+}
+
+function applyLanguage(lang){
+
+document.querySelectorAll("[data-key]").forEach(function(element){
+
+let key = element.getAttribute("data-key")
+
+if(translations[lang][key]){
+element.innerText = translations[lang][key]
+}
+
+})
+
+}
+
+window.onload = function(){
+
+let savedLang = localStorage.getItem("lang") || "en"
+
+document.getElementById("languageSwitcher").value = savedLang
+
+applyLanguage(savedLang)
+
+}
+
+</script>
+</body>
+</html>
