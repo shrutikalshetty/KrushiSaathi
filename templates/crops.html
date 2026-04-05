@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 data-key="crop_records">🌾 Crop Records</h1>
+
+<h3 data-key="add_crop_income">Add Crop Income</h3>
+
+<form method="POST">
+
+<label data-key="crop_name">Crop Name</label>
+<input type="text" name="crop_name" required>
+
+<label data-key="season">Season</label>
+<select name="season">
+<option>Kharif</option>
+<option>Rabi</option>
+<option>Summer</option>
+</select>
+
+<label data-key="income">Income (₹)</label>
+<input type="number" name="income" required>
+
+<button type="submit" data-key="add_crop">Add Crop</button>
+
+</form>
+
+
+<h2 data-key="crop_list">📋 Crop List</h2>
+
+<table>
+
+<tr>
+<th data-key="crop_name">Crop Name</th>
+<th data-key="season">Season</th>
+<th data-key="income">Income</th>
+<th>Action</th>
+</tr>
+
+{% for crop in crops %}
+
+<tr>
+<td>{{ crop[2] }}</td>
+<td>{{ crop[3] }}</td>
+<td>₹ {{ crop[4] }}</td>
+
+<td>
+<a href="/delete_crop/{{ crop[0] }}">
+<button style="background:green;color:white;border:none;padding:5px 10px;border-radius:5px;">
+❌ Delete
+</button>
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}
+
